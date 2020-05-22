@@ -1,0 +1,103 @@
+html {
+  @include font($size: 10px);
+  color: $color-text-dark;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+ {
+  margin: 0;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1440px;
+  padding: 20px 20px 71px;
+
+  &.fav-is-opened {
+    max-height: 100vh;
+    overflow-y: hidden;
+    background: #F8F8F8;
+
+    @include media-tablet {
+      overflow: auto;
+    }
+  }
+
+  @include media-tablet {
+    padding: 40px 40px 71px;
+  }
+
+  @include media-desktop {
+    padding: 40px 140px 140px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 78px;
+}
+
+
+.logo {
+
+  text-decoration: none;
+  @include font($size: 2rem, $height: 2.8rem, $weight: 700);
+  color: $color-text-dark;
+
+  &.fav-is-opened {
+    display: none;
+
+    @include media-tablet {
+      display: block;
+    }
+  }
+}
+
+
+.heading {
+  margin-bottom: 43px;
+  @include font($size: 3.2rem, $height: 4.4rem, $weight: 700);
+
+  & span {
+    display: block;
+    @include font($size: 2.4rem, $height: 4.4rem, $weight: 500);
+  }
+
+}
+
+.cover {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: $color-background-cover;
+  z-index: 1;
+  height: 100vh;
+
+  &.fav-is-opened {
+
+    @include media-tablet {
+      display: block;
+    }
+
+  }
+}

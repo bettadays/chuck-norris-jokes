@@ -1,0 +1,96 @@
+.jokes {
+  position: relative;
+
+  @include media-desktop {
+    width: 680px;
+  }
+}
+
+.joke-card {
+  background: $color-background-darker;
+  padding: 47px 20px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  &_favourite {
+    border-radius: 10px;
+    background: $color-background;
+  }
+
+  @include media-tablet {
+    padding: 67px 40px 40px;
+
+    &_favourite {
+      padding: 47px 20px 20px;
+    }
+  }
+}
+
+.joke-card__msg-icon-container {
+  width: 40px;
+  height: 40px;
+  background-color: $color-background;
+  border-radius: 50%;
+}
+
+.joke-card__heart {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  @include media-tablet {
+    top: 40px;
+    right: 40px;
+
+    &_favourite {
+      top: 20px;
+      right: 20px;
+    }
+  }
+}
+
+.joke-card__info {
+  margin-left: 20px;
+  width: 80%;
+}
+
+.joke-card__id {
+  @include font($size: 1rem, $height: 1.4rem, $weight: 500);
+  margin-bottom: 5px;
+  color: $color-text-light;
+  text-decoration: underline;
+}
+
+.joke-card__number {
+  color: $color-link;
+}
+
+.joke-card__joke {
+  @include font($size: 1.8rem, $height: 2.6rem);
+  margin-bottom: 20px;
+
+  &_favourite {
+    @include font($size: 1.4rem, $height: 2rem);
+  }
+}
+
+.joke-card__idditional-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.joke-card__time {
+  @include font($size: 1rem, $height: 1.4rem);
+  color: $color-text-light;
+  margin-bottom: 10px;
+
+  &_favourite {
+    margin-bottom: 0;
+  }
+}

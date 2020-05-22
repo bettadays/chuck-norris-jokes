@@ -1,10 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>MSI 2020</title>
+  <link rel="icon" href="#">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
 
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <a href="#" class="logo"><div >MSI 2020</div></a>
+    </header>
+    <main>
+      <section class="favourites ">
+          <div class="favourites-control-container">
+          <div class="favourites-control">
+          <div class="favourites-control-line-1"></div>
+          <div class="favourites-control-line-2"></div>
+        </div>
+        <h2 class="favourites-heading">Favourite</h2>
+        </div>
+        <div class="favourites-list">
+          <div class="joke-card joke-card_favourite">
+            <object class="joke-card__heart joke-card__heart_favourite" data="./src/assets/img/heart.svg" type="image/svg+xml"></object>
+            <div class="joke-card__msg-icon-container center">
+              <img class="joke-card__msg-icon" src="./src/assets/img/message.svg" alt="">
+            </div>
+            <div class="joke-card__info">
+              <div class="joke-card__id">ID: <span class="joke-card__number">XNaAxUduSw6zANDaIEab7A</span></div>
+              <div class="joke-card__joke joke-card__joke_favourite">No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</div>
+              <div class="joke-card__time joke-card__time_favourite">Last update: 1923 hours ago</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="search">
+        <h1 class="heading">Hey! <span>Let's try to find a joke for you:</span></h1>
+        <form action="#" class="form">
+          <div class="radio-btn-container">
+            <input type="radio" id="random" class="radio-btn" name="mode" value="random" checked="">
+            <label for="random" class="radio-btn__label">Random</label>
+          </div>
+          <div class="radio-btn-container">
+            <input type="radio" id="from-categories" class="radio-btn" name="mode" value="from-categories">
+            <label for="from-categories" class="radio-btn__label">From categories</label>
+          </div>
+          <div class="categories">
+            <div class="category-container center">
+              <div class="category">animal</div>
+            </div>
+            <div class="category-container center">
+              <div class="category">career</div>
+            </div>
+            <div class="category-container center">
+              <div class="category">celebrity</div>
+            </div>
+            <div class="category-container center">
+              <div class="category">dev</div>
+            </div>
+          </div>
+          <div class="radio-btn-container">
+            <input type="radio" id="search" class="radio-btn" name="mode" value="Search">
+            <label for="search" class="radio-btn__label">Search</label>
+          </div>
+          <input type="text" class="input-field" placeholder="Free text search...">
+          <input type="submit" class="submit-btn" value="Get a joke">
+        </form>
+      </section>
+      <section class="jokes">
+        <div class="joke-card">
+          <object class="joke-card__heart" data="./src/assets/img/heart.svg" type="image/svg+xml"></object>
+          <div class="joke-card__msg-icon-container center">
+            <img class="joke-card__msg-icon" src="./src/assets/img/message.svg" alt="">
+          </div>
+          <div class="joke-card__info">
+            <div class="joke-card__id">ID: <span class="joke-card__number">XNaAxUduSw6zANDaIEab7A</span></div>
+            <div class="joke-card__joke">No one truly knows who's Chuck Norris' real father. No one is biologically strong enough for this. He must've conceived himself.</div>
+            <div class="joke-card__idditional-info">
+               <div class="joke-card__time">Last update: 1923 hours ago</div>
+          <!--   <div class="categories"> -->
+              <!-- if only one outer can be deleted -->
+              <div class="category-container category-container_on-card center">
+                <div class="category">Celebrity</div>
+              </div>
+      <!--       </div> -->
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div class="cover"></div>
 </body>
+
 </html>
