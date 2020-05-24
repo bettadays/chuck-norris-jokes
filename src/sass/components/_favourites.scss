@@ -1,8 +1,15 @@
 .favourites {
   padding: 20px 20px 71px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: absolute;
   right: 0;
   top: 0;
@@ -33,6 +40,8 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 
   @include media-tablet {
@@ -78,18 +87,29 @@
   height: 28px;
   background: $color-text-dark;
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 
   &.fav-is-opened {
     & .favourites-control-line-1 {
-      transform: rotate(45deg) translate(2px, 2px) scaleX(1.06);
+      -webkit-transform: rotate(45deg) translate(2px, 2px) scaleX(1.06);
+              transform: rotate(45deg) translate(2px, 2px) scaleX(1.06);
     }
 
     & .favourites-control-line-2 {
-      transform: rotate(-45deg) translate(2px, -2px) scaleX(1.06);
+      -webkit-transform: rotate(-45deg) translate(2px, -2px) scaleX(1.06);
+              transform: rotate(-45deg) translate(2px, -2px) scaleX(1.06);
     }
   }
 
@@ -108,6 +128,7 @@
   width: 14px;
   height: 2px;
   border-radius: 2px;
+  -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
 

@@ -1,13 +1,15 @@
 html {
   @include font($size: 10px);
   color: $color-text-dark;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
 h1,
@@ -17,9 +19,15 @@ h2,
 }
 
 .center {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .wrapper {
@@ -48,9 +56,15 @@ h2,
 }
 
 .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 78px;
 }
 
@@ -79,7 +93,6 @@ h2,
     display: block;
     @include font($size: 2.4rem, $height: 4.4rem, $weight: 500);
   }
-
 }
 
 .cover {
@@ -101,3 +114,8 @@ h2,
 
   }
 }
+
+a[target="_blank"]:after {
+    content: url("../assets/img/external-link.svg");
+    margin-left: 5px;
+  }

@@ -1,12 +1,14 @@
 /**
  * @param {String} el
  * @param {Array} classNames
- * @param {Ogject} attributes
+ * @param {Object} attributes
  * @param {HTMLElement/String/Array of HTMLElements} child
  * @param {HTMLElement} parent
+ * @param {Object} data-attributes
  */
 
-export default function createElement(element, classNames, attributes, child, parent) {
+export default function createElement(element, classNames, attributes,
+  child, parent, dataAttributes) {
   const el = document.createElement(element);
   if (classNames) {
     el.classList.add(...classNames);
@@ -25,12 +27,19 @@ export default function createElement(element, classNames, attributes, child, pa
 
   if (child && Array.isArray(child)) {
     child.forEach((childElement) => {
-      element.appendChild(childElement);
+      el.append(childElement);
     });
   } else if (child && typeof child === 'string') {
     el.innerHTML = child;
   } else if (child && typeof child === 'object') {
     el.append(child);
+  }
+
+  if (dataAttributes) {
+    const keys = Object.keys(dataAttributes);
+    keys.forEach((key) => {
+      el.dataset[key] = dataAttributes[key];
+    });
   }
 
   return el;
