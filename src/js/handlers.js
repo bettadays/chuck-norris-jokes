@@ -46,7 +46,7 @@ export default function assignHandlers() {
     }
   });
 
-  function createObjectforLocalStotrage(e) {
+  function createObjectforLocalStorage(e) {
     const cardNode = e.target.closest('.joke-card');
     const { id } = cardNode.dataset;
     const value = cardNode.querySelector('.joke-card__joke').innerHTML;
@@ -68,8 +68,12 @@ export default function assignHandlers() {
       const cardNode = e.target.closest('.joke-card');
       const identificator = cardNode.dataset.id;
       cardNode.remove();
-      document.querySelector(`.jokes>.joke-card[data-id=${identificator}]> .joke-card__heart`).src = constants.HEART_ICON_PATH;
-      createObjectforLocalStotrage(e);
+      const jokeListAnalogue = document.querySelector(`.jokes>.joke-card[data-id=${identificator}]> .joke-card__heart`);
+      if (jokeListAnalogue) {
+        jokeListAnalogue.src = constants.HEART_ICON_PATH;
+      }
+
+      createObjectforLocalStorage(e);
     }
   });
 
@@ -97,7 +101,7 @@ export default function assignHandlers() {
         document.querySelector(`.jokes .joke-card[data-id=${identificator}] joke-card__heart`).calssList.toggle('.joke-card__heart_favourite');
       }
 
-      createObjectforLocalStotrage(e);
+      createObjectforLocalStorage(e);
     }
   });
 
