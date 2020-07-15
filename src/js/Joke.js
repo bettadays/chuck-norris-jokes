@@ -20,11 +20,13 @@ export default class Joke {
   }
 
   calculateHours() {
-    const now = Date.now();
-    const updatedAt = new Date(this.time);
-    const millisecondsInSecond = 1000;
-    const secondsInHour = 3600;
-    this.time = Math.round((now - updatedAt) / (millisecondsInSecond * secondsInHour));
+    if (typeof this.time !== 'number') {
+      const now = Date.now();
+      const updatedAt = new Date(this.time);
+      const millisecondsInSecond = 1000;
+      const secondsInHour = 3600;
+      this.time = Math.round((now - updatedAt) / (millisecondsInSecond * secondsInHour));
+    }
   }
 
   render() {

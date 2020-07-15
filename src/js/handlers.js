@@ -46,12 +46,30 @@ export default function assignHandlers() {
     }
   });
 
+  function createObjectforLocalStotrage(e) {
+    const cardNode = e.target.closest('.joke-card');
+    const { id } = cardNode.dataset;
+    const value = cardNode.querySelector('.joke-card__joke').innerHTML;
+    const updated_at = parseInt(cardNode.querySelector('.joke-card__time').innerHTML.match(/\d+/)[0], 0);
+    const cat = cardNode.querySelector('.category') ? [cardNode.querySelector('.category').innerHTML] : [];
+    const url = cardNode.querySelector('.joke-card__number').href;
+
+    const jokeObj = {};
+    jokeObj.categories = cat;
+    jokeObj.id = id;
+    jokeObj.updated_at = updated_at;
+    jokeObj.url = url;
+    jokeObj.value = value;
+    localStorage.updateLocalStorage(jokeObj);
+  }
+
   favouritesList.addEventListener('click', (e) => {
     if (e.target.classList.contains('joke-card__heart')) {
       const cardNode = e.target.closest('.joke-card');
       const identificator = cardNode.dataset.id;
       cardNode.remove();
       document.querySelector(`.jokes>.joke-card[data-id=${identificator}]> .joke-card__heart`).src = constants.HEART_ICON_PATH;
+      createObjectforLocalStotrage(e);
     }
   });
 
@@ -59,11 +77,7 @@ export default function assignHandlers() {
   jokes.addEventListener('click', (e) => {
     if (e.target.classList.contains('joke-card__heart')) {
       const cardNode = e.target.closest('.joke-card');
-      const { id } = cardNode.dataset;
-      const value = cardNode.querySelector('.joke-card__joke').innerHTML;
-      const updated_at = cardNode.querySelector('.joke-card__time').innerHTML;
-      const cat = cardNode.querySelector('.category') ? [cardNode.querySelector('.category').innerHTML] : [];
-      const url = cardNode.querySelector('.joke-card__number').href;
+
 
       if (e.target.src.includes('heart.svg')) {
         e.target.src = constants.FILLED_HEART_ICON_PATH;
@@ -72,23 +86,18 @@ export default function assignHandlers() {
       }
 
       const cardNodeClone = cardNode.cloneNode(true);
-      if (favourites.querySelector(`.joke-card[data-id='${id}']`)) {
-        favourites.querySelector(`.joke-card[data-id='${id}']`).remove();
+      const identificator = cardNode.dataset.id;
+      if (favourites.querySelector(`.joke-card[data-id='${identificator}']`)) {
+        favourites.querySelector(`.joke-card[data-id='${identificator}']`).remove();
       } else {
         favouritesList.append(cardNodeClone);
       }
 
       if (e.target.closest('.favourites')) {
-        document.querySelector(`.jokes .joke-card[data-id=${id}] joke-card__heart`).calssList.toggle('.joke-card__heart_favourite');
+        document.querySelector(`.jokes .joke-card[data-id=${identificator}] joke-card__heart`).calssList.toggle('.joke-card__heart_favourite');
       }
-      const jokeObj = {};
-      jokeObj.categories = cat;
-      jokeObj.id = id;
-      jokeObj.updated_at = updated_at;
-      jokeObj.url = url;
-      jokeObj.value = value;
 
-      localStorage.updateLocalStorage(jokeObj);
+      createObjectforLocalStotrage(e);
     }
   });
 

@@ -4,9 +4,9 @@ export function updateLocalStorage(jokeObj) {
   const { id } = jokeObj;
   if (window.localStorage.getItem(id)) {
     window.localStorage.removeItem(id);
-  } else {
-    window.localStorage.setItem(id, JSON.stringify(jokeObj));
+    return;
   }
+  window.localStorage.setItem(id, JSON.stringify(jokeObj));
 }
 
 export function checkIfInLocalStorage(key) {
@@ -21,9 +21,11 @@ export function getLocalStorage() {
 
 export function renderLocalStorage() {
   const storage = getLocalStorage();
-  const favouritesList = document.querySelector('.favourites-list');
-  Object.values(storage).forEach((obj) => {
-    const joke = new Joke(JSON.parse(obj));
-    favouritesList.append(joke.render());
-  });
+  if (storage) {
+    const favouritesList = document.querySelector('.favourites-list');
+    Object.values(storage).forEach((obj) => {
+      const joke = new Joke(JSON.parse(obj));
+      favouritesList.append(joke.render());
+    });
+  }
 }
