@@ -22,14 +22,12 @@ export default async function sendRequest(uri) {
         jokesContainer.innerHTML = '';
         const jokeCard = new Joke(jokesData);
         jokesContainer.append(jokeCard.render());
-
       } else if (jokesData.total) {
         jokesContainer.innerHTML = '';
         jokesData.result.forEach((joke) => {
           const jokeCard = new Joke(joke);
           jokesContainer.append(jokeCard.render());
         });
-
       } else if (jokesData.total === 0) {
         const message = create('div', ['message'], null, constants.NO_RESULTS_MSG);
         jokesContainer.innerHTML = '';
@@ -41,7 +39,6 @@ export default async function sendRequest(uri) {
         }
       }
     }
-
   } catch (err) {
     const errorMessage = create('div', ['message'], null, err);
     const connectionLostMessage = create('div', ['message'], null, constants.NO_INTERNET_MSG);
@@ -53,7 +50,6 @@ export default async function sendRequest(uri) {
       } else {
         jokesContainer.prepend(connectionLostMessage);
       }
-
     } else if (messageHolder) {
       messageHolder.replaceWith(errorMessage);
     } else {
