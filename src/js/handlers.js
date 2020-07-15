@@ -1,8 +1,9 @@
 import * as constants from './constants/constants';
-import { sendRequest } from './request';
+import * as localStorage from './localStorage';
+import sendRequest from './request';
 
 
-export const assignHandlers = () => {
+export default function assignHandlers() {
   const jokes = document.querySelector('.jokes');
   const favourites = document.querySelector('.favourites');
   const form = document.querySelector('.form');
@@ -45,11 +46,24 @@ export const assignHandlers = () => {
     }
   });
 
+  favouritesList.addEventListener('click', (e) => {
+    if (e.target.classList.contains('joke-card__heart')) {
+      const cardNode = e.target.closest('.joke-card');
+      const identificator = cardNode.dataset.id;
+      cardNode.remove();
+      document.querySelector(`.jokes>.joke-card[data-id=${identificator}]> .joke-card__heart`).src = constants.HEART_ICON_PATH;
+    }
+  });
+
 
   jokes.addEventListener('click', (e) => {
     if (e.target.classList.contains('joke-card__heart')) {
       const cardNode = e.target.closest('.joke-card');
-      const identificator = cardNode.dataset.id;
+      const { id } = cardNode.dataset;
+      const value = cardNode.querySelector('.joke-card__joke').innerHTML;
+      const updated_at = cardNode.querySelector('.joke-card__time').innerHTML;
+      const cat = cardNode.querySelector('.category') ? [cardNode.querySelector('.category').innerHTML] : [];
+      const url = cardNode.querySelector('.joke-card__number').href;
 
       if (e.target.src.includes('heart.svg')) {
         e.target.src = constants.FILLED_HEART_ICON_PATH;
@@ -57,26 +71,24 @@ export const assignHandlers = () => {
         e.target.src = constants.HEART_ICON_PATH;
       }
 
-      const cardNodeClone = cardNode.cloneNode(true); // modify  it as needed
-      if (favourites.querySelector(`.joke-card[data-id=${identificator}]`)) {
-        favourites.querySelector(`.joke-card[data-id=${identificator}]`).remove();
+      const cardNodeClone = cardNode.cloneNode(true);
+      if (favourites.querySelector(`.joke-card[data-id='${id}']`)) {
+        favourites.querySelector(`.joke-card[data-id='${id}']`).remove();
       } else {
         favouritesList.append(cardNodeClone);
       }
 
       if (e.target.closest('.favourites')) {
-        document.querySelector(`.jokes .joke-card[data-id=${identificator}] joke-card__heart`).calssList.toggle('.joke-card__heart_favourite'); // / change
+        document.querySelector(`.jokes .joke-card[data-id=${id}] joke-card__heart`).calssList.toggle('.joke-card__heart_favourite');
       }
-    }
-  });
+      const jokeObj = {};
+      jokeObj.categories = cat;
+      jokeObj.id = id;
+      jokeObj.updated_at = updated_at;
+      jokeObj.url = url;
+      jokeObj.value = value;
 
-
-  favouritesList.addEventListener('click', (e) => {
-    if (e.target.classList.contains('joke-card__heart')) {
-      const cardNode = e.target.closest('.joke-card');
-      const identificator = cardNode.dataset.id;
-      cardNode.remove();
-      document.querySelector(`.jokes>.joke-card[data-id=${identificator}]> .joke-card__heart`).src = constants.HEART_ICON_PATH;
+      localStorage.updateLocalStorage(jokeObj);
     }
   });
 
@@ -114,7 +126,6 @@ export const assignHandlers = () => {
 
   categories.addEventListener('click', (e) => {
     const allCategories = document.querySelectorAll('.category-container');
-
 
     if (e.target.classList.contains('category')) {
       changeClass(allCategories, null, 'category-container_selected');
@@ -161,9 +172,9 @@ export const assignHandlers = () => {
 
   searchField.addEventListener('input', () => {
     if (searchField.validity.tooShort) {
-      searchField.setCustomValidity('Query should be at least 3 caracters long');
+      searchField.setCustomValidity(constants.QUERY_LENGTH_MSG);
     } else {
       searchField.setCustomValidity('');
     }
   });
-};
+}

@@ -1,4 +1,7 @@
 import create from './utils/create';
+import * as localStorage from './localStorage';
+import * as constants from './constants/constants';
+
 
 export default class Joke {
   constructor({
@@ -12,7 +15,7 @@ export default class Joke {
     this.joke = value;
     this.time = updated_at;
     this.url = url;
-    this.category = categories[0];
+    this.category = categories[0] || '';
     this.isFavourite = isFavourite;
   }
 
@@ -24,7 +27,6 @@ export default class Joke {
     this.time = Math.round((now - updatedAt) / (millisecondsInSecond * secondsInHour));
   }
 
-
   render() {
     this.calculateHours();
     let categoryMarkup = '';
@@ -34,7 +36,12 @@ export default class Joke {
         create('div', ['category'], null, `${this.category}`));
     }
 
-    const heartElement = create('img', ['joke-card__heart'], { src: './src/assets/img/heart.svg' });
+    let heartElement = '';
+    if (localStorage.checkIfInLocalStorage(this.id)) {
+      heartElement = create('img', ['joke-card__heart'], { src: constants.FILLED_HEART_ICON_PATH });
+    } else {
+      heartElement = create('img', ['joke-card__heart'], { src: constants.HEART_ICON_PATH });
+    }
 
     const markup = create('div', ['joke-card'], null, [heartElement,
       create('div', ['joke-card__msg-icon-container', 'center'], null,
