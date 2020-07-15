@@ -1,5 +1,6 @@
 .jokes {
   position: relative;
+  font-size: 1.8rem;
 
   @include media-desktop {
     width: 680px;
