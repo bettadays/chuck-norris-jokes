@@ -1,6 +1,7 @@
 import * as constants from './constants/constants';
 import * as localStorage from './localStorage';
 import sendRequest from './request';
+import create from './utils/create';
 
 
 export default function assignHandlers() {
@@ -9,7 +10,6 @@ export default function assignHandlers() {
   const form = document.querySelector('.form');
   const categories = document.querySelector('.categories');
   const searchField = document.querySelector('.input-field');
-
 
   const favouritesBtn = document.querySelector('.favourites-control');
   const favouritesList = document.querySelector('.favourites-list');
@@ -128,7 +128,6 @@ export default function assignHandlers() {
           break;
         case 'search':
           changeClass([categories], searchField, 'visible');
-          searchField.autofocus = true;
           break;
         default:
           break;
@@ -151,11 +150,26 @@ export default function assignHandlers() {
     }
   });
 
+  function checkValidity(input) {
+    if (!/(\w+){3,}/.test(input)) {
+      const invalid = create('div', ['message'], null, constants.QUERY_LENGTH_MSG);
+      form.insertBefore(invalid, searchField);
+      setTimeout(() => {
+        invalid.remove();
+      }, 2000);
+
+
+      return false;
+    }
+    return true;
+  }
+
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const radioBtns = document.querySelectorAll('.radio-btn');
     const searchInput = document.querySelector('.input-field').value;
+
 
     let userChoice = '';
     let requestLink = '';
@@ -171,7 +185,12 @@ export default function assignHandlers() {
             requestLink = `${constants.REQUEST_RANDOM_FROM_CAT_URI}${selectedCategory}`;
             break;
           case 'search':
-            requestLink = `${constants.REQUEST_SEARCH_URI}${searchInput}`;
+            if (checkValidity(searchInput)) {
+              requestLink = `${constants.REQUEST_SEARCH_URI}${searchInput}`;
+            } else {
+              requestLink = '';
+            }
+
             break;
           default:
             break;
@@ -179,15 +198,8 @@ export default function assignHandlers() {
       }
     });
 
-    sendRequest(requestLink);
-  });
-
-
-  searchField.addEventListener('input', () => {
-    if (searchField.validity.tooShort) {
-      searchField.setCustomValidity(constants.QUERY_LENGTH_MSG);
-    } else {
-      searchField.setCustomValidity('');
+    if (requestLink) {
+      sendRequest(requestLink);
     }
   });
 }
